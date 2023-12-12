@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Santa 2023</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: #3498db;
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 40px;
+      cursor: pointer;
+      margin: 5px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+
+    .number:hover {
+      background-color: #297fb8;
+    }
+
+    .name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Secret Santa 2023</h1>
+  <div id="numbers-container"></div>
+  <div id="names-container" class="hidden">
+    <div id="name"></div>
+  </div>
+</div>
+
+<script>
+  const names = [
+    "Andrew Onanna", "Titilope Oladapo", "Rukayat Rufai", "Toheeb Abdullahi", "Bolarinwa Lawal",
+    "Dharmesh Gupta", "Oluwaseun Afolabi", "Obianuju Nwaobi-Onyekwere", "Akeem Olayiwola", "Saheed Shobayo",
+    "Joseph Ajayi", "Temitope Michael Olubusi", "Fawaz", "Temitope Adeleke", "Ifunanya Metu",
+    "Oluwatobi Faleto", "Beatrice Adagbogun", "Alfred Anso", "Dakant Joshua Dacom", "Mosopefoluwa Jinadu",
+    "Andrew Oyanna", "Funke Ojekunle", "Olugbemiga Delano", "Comfort Osughe", "Waheed", "Samuel Kupoluyi",
+    "Timothy Somuyiwa", "Kazeem Omoniyi", "Sherifat Sogbanmu", "Adewale Anifowose", "Isivera Akhabue",
+    "Oluwatobi Akinbobola", "Oluwole Okuntade", "Kelechi Nwamba-Boyejo", "Ayodeji Odudimu", "Oluwafemi Kokoye",
+    "Abiodun Liassidji", "Azunna Ashiwe", "Moses Ayo-John", "Ezekiel Adesanya", "Dr John", "Oluwademilade Adefemi"
+  ];
+
+  const numbersContainer = document.getElementById('numbers-container');
+  const namesContainer = document.getElementById('names-container');
+  const nameElement = document.getElementById('name');
+
+  // Generate number buttons
+  for (let i = 1; i <= names.length; i++) {
+    const numberButton = document.createElement('div');
+    numberButton.className = 'number';
+    numberButton.textContent = i;
+    numberButton.onclick = () => showName(i - 1);
+    numbersContainer.appendChild(numberButton);
+  }
+
+  // Show name when a number is clicked
+  function showName(index) {
+    namesContainer.classList.remove('hidden');
+    numbersContainer.innerHTML = ''; // Remove number buttons
+
+    nameElement.textContent = names[index];
+    nameElement.className = 'name';
+
+    // Save the selected index in localStorage to persist even after refreshing
+    localStorage.setItem('selectedIndex', index);
+  }
+
+  // Check if there is a selected index in localStorage
+  const selectedIndex = localStorage.getItem('selectedIndex');
+  if (selectedIndex !== null) {
+    showName(parseInt(selectedIndex));
+  }
+</script>
+
+</body>
+</html>
